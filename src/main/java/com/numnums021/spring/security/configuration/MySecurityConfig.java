@@ -1,14 +1,18 @@
 package com.numnums021.spring.security.configuration;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.User.UserBuilder;
+
+import javax.sql.DataSource;
 
 @EnableWebSecurity
 public class MySecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    DataSource dataSource;
 
     private static final String ROLE_EMPLOYEE = "EMPLOYEE";
     private static final String ROLE_MANAGER = "MANAGER";
@@ -17,19 +21,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-        UserBuilder userBuilder = User.withDefaultPasswordEncoder(); // создание логина и пароля в памяти
-
-        auth.inMemoryAuthentication().withUser(userBuilder.username("danya")
-                .password("danya")
-                .roles(ROLE_EMPLOYEE));
-
-        auth.inMemoryAuthentication().withUser(userBuilder.username("anya")
-                .password("anya")
-                .roles(ROLE_HR));
-
-        auth.inMemoryAuthentication().withUser(userBuilder.username("ivan")
-                .password("ivan")
-                .roles(ROLE_MANAGER, ROLE_HR));
+        auth.jdbcAuthentication().dataSource(dataSource);
     }
 
     @Override
