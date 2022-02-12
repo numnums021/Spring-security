@@ -15,9 +15,9 @@ CREATE TABLE authorities (
 
 INSERT INTO my_db.users (username, password, enabled)
 VALUES
-	('danya', '{noop}danya', 1),
-	('anya', '{noop}anya', 1),
-	('ivan', '{noop}ivan', 1);
+	('danya', '{bcrypt}$2y$10$IEVJbDOhGN954EBmOcyNsuXL4Wpkf3DIcbFI9adti/oOvKZYCcpGi', 1),
+	('anya', '{bcrypt}$2y$10$k0W1rKOZT.13rNdfln9Jb.qfYHkCKljXMyBohE88VQsDquukQnBau', 1),
+	('ivan', '{noop}{bcrypt}$2y$10$OBr7kx7y7p86WFseDaJbW.OqeZQcsfwh80fTyN8cjrjvztXUfdgGy', 1);
 
 INSERT INTO my_db.authorities (username, authority)
 VALUES
