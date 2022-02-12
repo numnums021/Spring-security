@@ -1,16 +1,28 @@
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
-<html>
+<html lang = "en">
+<head>
+    <title>Information about all employees</title>
+    <meta content="text/html; charset=utf-8" />
+</head>
+
 <body>
 
-<h3>Информация о всех работниках</h3>
+    <h3></h3>
 
-<br><br>
-<input type="button" value="Зарплата" onclick="window.location.href = 'hr_info'">
-Только для работников HR
+    <br>Information about all employees<br>
 
-<br><br>
-<input type="button" value="Производительность" onclick="window.location.href = 'manager_info'">
-Только для работников MANAGER
+    <security:authorize access = "hasRole('HR')">
+        <input type="button" value="Salary" onclick="window.location.href = 'hr_info'">
+        Only for HR workers
+    </security:authorize>
+
+
+    <br><br>
+    <security:authorize access = "hasRole('MANAGER')">
+        <input type="button" value="Performance" onclick="window.location.href = 'manager_info'">
+        Only for MANAGER employees
+    </security:authorize>
 
 </body>
 
